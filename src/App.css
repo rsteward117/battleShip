@@ -1,0 +1,106 @@
+.App{
+    text-align: center;
+}
+body{
+  background: rgb(56,56,56);
+  background: linear-gradient(320deg, rgba(56,56,56,1) 0%, rgba(126,129,133,1) 25%, rgba(166,169,173,1) 50%, rgba(126,129,133,1) 75%, rgba(56,56,56,1) 100%);  font-family: 'Roboto Mono', monospace;
+  margin: 0%;
+  height: 100vh;
+}
+
+.alert-Container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0px auto 20px auto;
+  border-top: 8px solid grey;
+  border-left: 8px solid grey;
+  border-right: 8px solid grey;
+  border-bottom: 8px solid grey;
+  background-color: black;
+  width: 1000px; 
+}
+
+.header-turn-count{
+    color: white;
+    font-size: 18px;
+    margin: 0px auto 10px auto;
+  }
+.alert{
+    font-family: 'Roboto Mono', monospace;
+    color: white;
+    background-color: transparent;
+    width: auto;
+    font-size: 2rem;
+    padding: 6px 12px;
+    margin-bottom: 5px;
+    border: none;
+}
+
+.boards-container {
+  display: flex;
+  width: 1000px;
+  margin: 10px auto;
+  justify-content: center;
+  gap: 25px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.game-board {
+  margin: 0 auto;
+  width: 60vh;
+  height: 60vh;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  border-top: 8px solid black;
+  border-left: 8px solid black;
+  border-right: 8px solid black;
+  border-bottom: 8px solid black;
+  cursor: pointer;
+  background-color: darkblue;
+}
+.game-board.Player-board {
+    background: radial-gradient(#09244b, #0b3b5c, #245c7c);
+  }
+.game-board.Computer-board {
+    background: radial-gradient(#000000, #071d02,  #28440a);
+  }
+.grid-square {
+  position: relative;
+  box-shadow: 0px 0px 5px #67ff9a;
+  border: 1px solid #0ffd5e;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.1rem;
+  color: red;
+  box-sizing: border-box;
+  transition: all .6s ease;
+}
+.grid-square.Player {
+    box-shadow: none;
+    border: 1px solid #2cc3ffb9;
+}
+.hover-ship{
+    background-color: rgb(54, 153, 45);
+}
+hover-aim{
+    background-color: rgba(21, 255, 0, 0.548);
+}
+.lower-container{
+    color: var(--primary-dark);
+    background-color: white;
+    border-top: 8px solid black;
+    border-left: 8px solid black;
+    border-right: 8px solid black;
+    border-bottom: 8px solid black;
+    outline: none;
+    font-size: 16px;
+    font-family: 'Roboto Mono', monospace;
+}
