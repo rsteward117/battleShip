@@ -40,7 +40,7 @@ function TheGameBoard ({
                             isHovering={isHovering}
                             gameWon={gameWon}
                             />)
-                    } else if(player === "Ai"){
+                    } else if (player === "Ai"){
                         board.push(
                             <GameGridPostions
                                 board={player}
@@ -55,6 +55,7 @@ function TheGameBoard ({
                                 aiIsHovering={aiIsHovering}
                                 aiShips={aiShips}
                                 setText={setText}
+                                setAiBoard={setAiBoard}
                                 aiBoard={aiBoard}
                                 gameOver={gameOver}
                                 gameWon={gameWon}
@@ -67,7 +68,7 @@ function TheGameBoard ({
     return(
         <div>
             <span className="board-name">{player}'s board</span>
-            <div className={`game-board ${player}-board`}>{gird()}
+            <div className={`game-board ${player}-board`}>{ gird() }
             </div>
         </div>
     )

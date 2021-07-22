@@ -1,9 +1,11 @@
+//code this code is reverse engineered from KFig21's code soultions from the odin project there are comments that explain what each function is doing i've add on to the code to allow an image to display when a ship is hit.
 import './App.css';
 import React, {useState, useEffect} from "react"
 import playerShipData from './playersDatas/PlayerShip'
 import AiShipData from './playersDatas/AIShip'
 import TheGameBoard from "./components/theGameBoard"
 import Alerts from './components/alerts'
+import boom from "./components/images/boom.jpg"
 
 function App() {
     const [turn, setTurn] = useState(0)
@@ -13,13 +15,13 @@ function App() {
     const [gameStart, setGameStart] = useState(false)
     const [ships, setShips] = useState([])
     const [shipToPlaceIndex, setShipToPlaceIndex] = useState(0)
-    const [shipToPlace, setShipToPlace] =useState(playerShipData[shipToPlaceIndex])
+    const [shipToPlace, setShipToPlace] = useState(playerShipData[shipToPlaceIndex])
     const [isHovering, setIsHovering] = useState([])
     const [playerBoard, setPlayerBoard] = useState([])
     const [aiReady, setAiReady] = useState(false)
     const [aiShips, SetAiShips] = useState([])
     const [aiShipToPlaceIndex, setAiShipToPlaceIndex] = useState(0)
-    const [aiShipToPlace, setAiShipToPlace] =useState(AiShipData[aiShipToPlaceIndex])
+    const [aiShipToPlace, setAiShipToPlace] = useState (AiShipData[aiShipToPlaceIndex])
     const [aiIsHovering, setAiIsHovering] = useState([]);
     const [aiBoard, setAiBoard] = useState([]);
     const [onTarget, setOnTarget] = useState(false)
@@ -30,18 +32,20 @@ function App() {
     const alert = document.getElementById("alert")
     
     //function that switch players and keep track of turns
+    
     function switchPlayer () {
     setCurrentPlayer(currentPlayer === "Player" ? "Ai" : "Player");
     setTurn((previous) => previous + 1);
   }
+  
     //if its the ai turn it havs  seconds to make a move
-    
     useEffect(() => {
         if(gameWon) return
         if (currentPlayer === "Ai"){
           setTimeout(() => aiTurn(), 1000);
         }
   }, [currentPlayer])
+    
     
     function aiTurn (){
         if(gameWon) return
@@ -83,7 +87,7 @@ function App() {
                 for(let j = 0; j < ships[i].shipCoords.length; j++){
                     //an if statement that has conditions for each time the ai hit one of ships the player has on his/her board and returns a notifction of the results
                     if(ships[i].shipCoords[j] === attack){
-                        document.getElementById(`Player-${attack}`).style.backgroundColor = "red"
+                        document.getElementById(`Player-${attack}`).style.backgroundImage = `url(${boom})`
                         ships[i].shipHealth --;
                         setText(`Alert: you've been hit! at cell[${attack}]`);
                         alert.style.color = "red"
@@ -95,7 +99,7 @@ function App() {
                             alert.style.color = "red"
                             checkIfOnTarget(ships[i])
                             for(let k = 0; k < ships[i].shipSize; k++){
-                                document.getElementById(`Player-${ships[i].shipcoords[k]}`).style.backgroundColor = "darkred"
+                             document.getElementById(`Player-${ships[i].shipCoords[k]}`).style.backgroundColor = "darkred"
                             }
                         }
                         //if ai sinks every ship the player has on their board the game is over and the ai wins
@@ -115,6 +119,8 @@ function App() {
         return
     }
     
+    
+    
     //this function is checking to see if the ai is hitting all the correct ships on the player's board by compareing what targets it hit with the target value useState
     function checkIfOnTarget (ship) {
         let leftoverTargets = targetValue
@@ -131,6 +137,7 @@ function App() {
         }
         return
     }
+
     
     //function that selects a random number or cell from the player's 
     function findRandomTarget(){
@@ -140,7 +147,8 @@ function App() {
         }
         return target
     }
-        
+      
+    
     function aiHoverEffects(coords){
         if(!aiReady) return
         const target = [coords]
@@ -209,7 +217,7 @@ function App() {
         }
         return targets
     }
-
+    
     function getPreferredTarget (){
         if (targetValue.length < 2) return [];
         const preferredTargets = []
@@ -241,6 +249,7 @@ function App() {
         return preferredTargets
     }
     
+    
     //starts the game
     function startGame (){
         if(boardReady && !gameWon){
@@ -249,6 +258,7 @@ function App() {
             restartGame();
         }
     }
+    
     
     //this function shows the highlights of the ships that the player is setting on their board by checking if the ship is vertical or not, and it is also looping for for each ship based on it's size, and it is pushing the coordinates of each cell in an array to return the number of the cell that the ship is currently hovering over. 
     function hoverEffects (coords){
@@ -267,6 +277,7 @@ function App() {
         }
         setIsHovering(coordinates)
     }
+    
     
     //this function allows the player to place each one of his/her ships on the board and returns the coordinates of each cell on the  play's board
     function placeShip (coords){
@@ -291,6 +302,7 @@ function App() {
         } 
     }
     
+    
     // this function keeps track of what cell each ship is being placed in, and which cell a ship can't be placed in
     function validateShip (coords, player){
         let start = coords[0]
@@ -305,7 +317,9 @@ function App() {
         }
         return true;
     }
+    
     //a use effect that used as a pregame setup to allow the player to place all their ships on the board and start the game
+    
     useEffect(() => {
         if(!gameStart){
           if(shipToPlaceIndex < 5){
@@ -319,24 +333,25 @@ function App() {
         }
     }, )
     
+    
     //this use effect sets all the ai ships on the ai board as so as the player is ready to start the game
     useEffect(() => {
           if(gameStart && !aiReady){
-              if(aiShips.length <= 5){
-                  setAiShipToPlace(AiShipData[setAiShipToPlaceIndex])
-                  placeAiship();
+              if(aiShips.length <= 5){ setAiShipToPlace(AiShipData[aiShipToPlaceIndex])
+              placeAiship();
               }else{
-                  setAiReady(true)
+                setAiReady(true)
               }
           }
       })
     
+    
     function tryAgain() {
         placeAiship();
   }
-        
+    
 //this function place all the ai ships on the ai board at any cell randomly from cell 0 to 98, and also returns what cell each ship is in to the validateShip function
-    const placeAiship = () => {
+    function placeAiship () {
       let ship = aiShipToPlace;
       let coordinate = Math.floor(Math.random() * 98);
       const axisArr = [1, 10];
@@ -349,13 +364,14 @@ function App() {
         SetAiShips((currentShips) => {
             return [...currentShips, ship]
         });
-        ship.shipcoords = coordinates;
+        ship.shipCoords = coordinates;
       } else {
         tryAgain();
         return
       }
       setAiShipToPlaceIndex(prev => parseInt(prev + 1));
   }
+  
     
     function gameOver(player){
         setText(`Game over! ${player} wins!`);
@@ -365,25 +381,30 @@ function App() {
         setGameWon(true)
     }
     
+    
     function aiHandleHoverEffects(coords) {
         if (!aiReady) return;
         const target = [coords];
         setAiIsHovering(target);
   };
     
+    
     //changes the axis of the ships
     function changeAxis(){
         setAxis(axis === "Vertical" ? "Horizontal" : "Vertical");
         setIsVertical(isVertical === false ? true : false)
     }
-        
+    
+    
     //restarts the game
     function restartGame(){
         window.location.reload()
         alert.style.color = "white"
     }
-        
+      
+    
       return(
+          
         <div className="App">
             <Alerts
                 turn={turn}
@@ -391,6 +412,8 @@ function App() {
                 text={text}
                 shipToPlace={shipToPlace}
               />
+              
+            
             <div className="boards-container">
                 <TheGameBoard
                     player="Player"
@@ -405,6 +428,8 @@ function App() {
                     isHovering={isHovering}
                     placeShip={placeShip}
                 />
+                
+                
                 {gameStart && (
                 <TheGameBoard
                     player="Ai"
@@ -418,10 +443,12 @@ function App() {
                     aiShips={aiShips}
                     setText={setText}
                     setAiBoard={setAiBoard}
+                    aiBoard={aiBoard}
                     gameOver={gameOver}
                     gameWon={gameWon}        
                 />
                 )}
+                
             </div>    
             <div className="lower-container">
                 {!gameStart && (
@@ -433,5 +460,6 @@ function App() {
             </div> 
         </div>
     );
+    
 }
 export default App;

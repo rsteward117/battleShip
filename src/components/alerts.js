@@ -1,6 +1,6 @@
 import React from "react"
 //this is right
-function Alerts(turn, text){
+const Alerts = ({turn, text}) => {
     return(
         <div className="alert-Container">
             <span className="alert" id="alert">

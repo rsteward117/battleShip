@@ -50,11 +50,11 @@ function GameGridPostions ({
         //if the board is the ai's board
         if(board === "Ai"){
             if(aiBoard.includes(coords)) return
-            setAiBoard((currentBoard) => [currentBoard, coords])
+            setAiBoard((currentBoard) => [...currentBoard, coords])
             for(let i = 0; i < aiShips.length; i++){
-                for(let j = 0; j < aiShips[i].shipcoords.length; j++){
+                for(let j = 0; j < aiShips[i].shipCoords.length; j++){
                     //if the player clicks on the ai's ship the ai's ship take damage
-                    if(aiShips[i].coords[j] === coords){
+                    if(aiShips[i].shipCoords[j] === coords){
                         document.getElementById(`${board}-${coords}`).style.backgroundImage = `url(${boom})`
                         aiShips[i].shipHealth --;
                         setText(`Attacking: You've Hit! [${coords}]`)
