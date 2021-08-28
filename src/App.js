@@ -1,4 +1,4 @@
-//code this code is reverse engineered from KFig21's code soultions from the odin project there are comments that explain what each function is doing i've add on to the code to allow an image to display when a ship is hit.
+
 import './App.css';
 import React, {useState, useEffect} from "react"
 import playerShipData from './playersDatas/PlayerShip'
